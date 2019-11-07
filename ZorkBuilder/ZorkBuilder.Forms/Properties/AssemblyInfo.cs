@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ZorkBuilder.WinForms")]
+[assembly: AssemblyTitle("ZorkBuilder.Forms")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ZorkBuilder.WinForms")]
+[assembly: AssemblyProduct("ZorkBuilder.Forms")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("81467f7f-7b07-4473-85d8-9402fc3be1be")]
+[assembly: Guid("dd6af027-4960-4cfd-8de7-e84331f5cfed")]
 
 // Version information for an assembly consists of the following four values:
 //

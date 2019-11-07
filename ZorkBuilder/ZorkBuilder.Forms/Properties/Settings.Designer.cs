@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ZorkBuilder.WinForms.Properties
+namespace ZorkBuilder.Forms.Properties
 {
 
 

@@ -9,41 +9,39 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ZorkBuilder.Data;
+using ZorkBuilder.Forms.ViewModels;
 using Newtonsoft.Json;
-using Zork;
-namespace ZorkBuilder.WinForms
+
+namespace ZorkBuilder.Forms
 {
     public partial class MainForm : Form
     {
-        public static string AssemblyTile = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyTitleAttribute>()?.Title;
-
+        public static string AssemblyTitle = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyTitleAttribute>()?.Title;
         private WorldViewModel ViewModel {
-            get => mViewmodel;
+            get => mViewModel;
             set {
-                if(mViewmodel != value) {
-                    mViewmodel = value;
-                    worldViewModelBindingSource.DataSource = mViewmodel;
+                if (mViewModel != value) {
+                    mViewModel = value;
+                    //insert binding source
                 }
             }
         }
-
         private bool IsGameLoaded {
             get => mIsGameLoaded;
             set {
                 mIsGameLoaded = value;
-                tabControl.Enabled = mIsGameLoaded;
+                gameControl.Enabled = mIsGameLoaded;
             }
         }
-
         public MainForm() {
             InitializeComponent();
             ViewModel = new WorldViewModel();
             IsGameLoaded = false;
         }
-
         private void NewGameToolStripMenuItem_Click(object sender, EventArgs e) {
-            if(createNewDialog.ShowDialog() == DialogResult.OK) {
-                ViewModel.Filename = createNewDialog.Filename;
+            if (createNewDialog.ShowDialog() == DialogResult.OK) {
+                ViewModel.Filename = createNewDialog.FileName;
                 ViewModel.Rooms = new BindingList<Room> { new Room { Name = "Start" } };
                 ViewModel.SaveGame();
                 Game game = JsonConvert.DeserializeObject<Game>(File.ReadAllText(createNewDialog.FileName));
@@ -52,8 +50,11 @@ namespace ZorkBuilder.WinForms
             }
         }
 
-        private void OpenToolStripMenuItem_Click(object sender, EventArgs e) {
-            if(openFileDialog.ShowDialog() == DialogResult.OK) {
+        private WorldViewModel mViewModel;
+        private bool mIsGameLoaded;
+
+        private void OpenGameToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (openFileDialog.ShowDialog() == DialogResult.OK) {
                 Game game = JsonConvert.DeserializeObject<Game>(File.ReadAllText(openFileDialog.FileName));
                 ViewModel.Game = game;
                 ViewModel.Filename = openFileDialog.FileName;
@@ -61,21 +62,17 @@ namespace ZorkBuilder.WinForms
             }
         }
 
-        private void TextBox1_TextChanged(object sender, EventArgs e) {
+        private void SaveToolStripMenuItem_Click(object sender, EventArgs e) => ViewModel.SaveGame();
 
+        private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (saveFileDialog.ShowDialog() == DialogResult.OK) {
+                ViewModel.Filename = saveFileDialog.FileName;
+                ViewModel.SaveGame();
+            }
         }
 
-        private void Label2_Click(object sender, EventArgs e) {
-
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e) {
+            Close();
         }
-
-        private void TextBox1_TextChanged_1(object sender, EventArgs e) {
-
-        }
-
-        private WorldViewModel mViewmodel;
-        private bool mIsGameLoaded;
-
-        
     }
 }
